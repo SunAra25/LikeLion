@@ -6,15 +6,21 @@
 //
 
 import SwiftUI
+import SafariServices
 
-struct NewsWebView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+struct NewsWebView: UIViewControllerRepresentable {
+        @Binding var url: URL
+        
+        func makeUIViewController(context: Context) -> SFSafariViewController {
+            return SFSafariViewController(url: url)
+        }
+        
+        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        }
 }
 
 struct NewsWebView_Previews: PreviewProvider {
     static var previews: some View {
-        NewsWebView()
+        NewsWebView(url: .constant(URL(string: "https://www.apple.com/kr/mac-studio/")!))
     }
 }

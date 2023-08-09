@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ItemView: View {
+    @EnvironmentObject var itemStore: ItemStore
+    @State var isShowingAlert = false
+    
     var shoppingItem: Item
     
     var body: some View {
@@ -20,10 +23,26 @@ struct ItemView: View {
                 ProgressView()
             }
             .border(.gray)
+            
             VStack(alignment: .leading) {
-                Text("\(shoppingItem.shoppingName)")
-                    .font(.title2)
-                    .padding(.bottom, 5)
+                HStack {
+                    Text("\(shoppingItem.shoppingName)")
+                        .font(.title2)
+                        .padding(.bottom, 5)
+                    
+                    Spacer()
+                    
+                    Button {
+                        itemStore.addItem(item: shoppingItem)
+                        isShowingAlert.toggle()
+                    } label: {
+                        Image(systemName: "plus.circle")
+                            .font(.title)
+                    }
+                    .alert(isPresented: $isShowingAlert) {
+                        Alert(title: Text("장바구니에 추가되었습니당^ㅡ^"))
+                    }
+                }
                 Text("\(shoppingItem.name)")
                     
                 HStack {
@@ -38,6 +57,6 @@ struct ItemView: View {
 
 struct ShoppingItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemView(shoppingItem: ItemStore().shoppingItems[0])
+        ItemView(shoppingItem: ItemStore().shoppingItems[0]).environmentObject(ItemStore())
     }
 }

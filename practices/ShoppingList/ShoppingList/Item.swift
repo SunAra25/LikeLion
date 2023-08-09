@@ -11,13 +11,13 @@ struct Item: Identifiable {
     var id = UUID()
     var name: String
     var imageUrlString: String
-    var imageUrl: URL? {
-        URL(string: imageUrlString)
+    var imageUrl: URL {
+        URL(string: imageUrlString) ?? URL(string: "https://naver.com")!
     }
     var price: Int
     var shoppingName: String
     var shoppingUrlString: String
-    var shoppingUrl: URL? {
-        URL(string: shoppingUrlString)
+    var shoppingUrl: URL {
+        URL(string: shoppingUrlString) ?? URL(string: "https://naver.com")!
     }
 }
