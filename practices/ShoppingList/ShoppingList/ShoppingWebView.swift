@@ -6,15 +6,21 @@
 //
 
 import SwiftUI
+import SafariServices
 
-struct ShoppingWebView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+struct ShoppingWebView: UIViewControllerRepresentable {
+    @Binding var url: URL
+    
+    func makeUIViewController(context: Context) -> SFSafariViewController {
+        return SFSafariViewController(url: url)
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
     }
 }
 
 struct ShoppingWebView_Previews: PreviewProvider {
     static var previews: some View {
-        ShoppingWebView()
+        ShoppingWebView(url: .constant(URL(string: "https://www.apple.com/kr/mac-studio/")!))
     }
 }
